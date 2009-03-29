@@ -7,7 +7,7 @@
 <% @jobs.each do |job| %>
 <tr>
   <td><a href="/jobs/<%= job.id %>.html"><%= job.id %></a></td>
-  <td><%= job.at.strftime("%Y/%m%/%d %H:%M") %></td>
+  <td><%= job.at.strftime("%Y/%m/%d %H:%M") %></td>
   <td><%= job.command %></td>
 </tr>
 <% end %>
