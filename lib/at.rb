@@ -125,25 +125,34 @@ module At
       end
     end
 
+    MARKER = "#### ATREST MARKER ####"
+
     def self.query_job(job_id)
       output = run("at -c #{job_id}")
-      idx = output.rindex("export OLDPWD")
+      idx = output.rindex(MARKER)
       idx = idx + output[idx..-1].index("\n")
       output[(idx + 1)..-1].strip
     end
 
     def self.queue_job(job)
-      output = run("at", "-t", job.at.localtime.strftime("%Y%m%d%H%M")) do |i, o, e|
+      output = run("at", job.at.localtime.strftime("%H:%M %Y-%m-%d")) do |i, o, e|
+        i.puts MARKER
         i.puts job.command
         i.close
 
         e.read
       end
 
-      m = output.match(/^job (\d+) at (.*\d{4})+$/)
-      raise Error.new("unexpected output while queuing job") unless m
+      m = nil
+      output.split("\n").each do |line|
+        m = line.match(/^job (\d+) at (.*)$/)
+        break m if m
+      end
+
+      raise Error.new("unexpected output while queuing job: #{output.inspect}") unless m
 
       job_id, time = m[1], m[2]
+      $stderr.puts "Creating job #{job_id.inspect} #{time.inspect}"
       self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true)
     end
 
