@@ -107,9 +107,7 @@ module At
       b.job do |j|
         j.id(id, :type => 'integer') if id
         j.at(at.utc.rfc822, :type => 'datetime')
-        j.command do |c|
-          c.cdata! command
-        end
+        j.command command
       end
     end
 
