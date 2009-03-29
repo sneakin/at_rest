@@ -136,6 +136,8 @@ module At
     def self.find_all
       run("atq").split("\n").collect do |line|
         job_id, time = line.split("\t")
+	m = time.match(/^(.*) (\w) (\w+)$/) # handle the linux case where the queue and user is on the line
+	time = m[1] if m
         self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true, :changed => false)
       end
     end

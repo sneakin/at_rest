@@ -33,14 +33,28 @@ describe At::Job do
   end
 
   describe '.find_all' do
-    it "calls atq and returns a Job for each entry" do
-      At::Job.should_receive(:run).with("atq").and_return("1\tSat Mar 28 17:03:00 2009\n2\tSun Apr 01 01:00 2009\n")
+    describe 'on OS X' do
+      it "calls atq and returns a Job for each entry" do
+        At::Job.should_receive(:run).with("atq").and_return("1\tSat Mar 28 17:03:00 2009\n2\tSun Apr 01 01:00 2009\n")
 
-      jobs = At::Job.find_all
-      jobs[0].id.should == 1
-      jobs[0].at.should == Time.parse("2009/03/28 17:03")
-      jobs[1].id.should == 2
-      jobs[1].at.should == Time.parse("2009/04/01 01:00")
+        jobs = At::Job.find_all
+        jobs[0].id.should == 1
+        jobs[0].at.should == Time.parse("2009/03/28 17:03")
+        jobs[1].id.should == 2
+        jobs[1].at.should == Time.parse("2009/04/01 01:00")
+      end
+    end
+
+    describe 'on Linux' do
+      it "calls atq and returns a Job for each entry" do
+        At::Job.should_receive(:run).with("atq").and_return("1\t2009-03-28 17:03 a sneakin\n2\t2009-04-01 01:00 b bob\n")
+
+        jobs = At::Job.find_all
+        jobs[0].id.should == 1
+        jobs[0].at.should == Time.parse("2009/03/28 17:03")
+        jobs[1].id.should == 2
+        jobs[1].at.should == Time.parse("2009/04/01 01:00")
+      end
     end
   end
 
