@@ -1,6 +1,5 @@
 <h1>Job <%= @job.id %></h1>
 <form method="POST">
-  <input type="hidden" name="method" value="put"/>
   <dl>
     <dt>At</dt>
     <dd><input name="job[at]" value="<%= @job.at %>"/></dd>
@@ -10,6 +9,8 @@
   </dl>
   <div class="buttons">
     <input type="submit" name="commit" value="Save"/>
-    <input type="submit" name="commit" value="Destroy"/>
+    <% unless @job.new_record? %>
+      <input type="submit" name="commit" value="Destroy"/>
+    <% end %>
   </div>
 </form>
