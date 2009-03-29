@@ -1,0 +1,72 @@
+<html>
+  <title><%= "#{@title} | " if @title %>AtRest</title>
+  <style type="text/css">
+    BODY {
+      background: black;
+      margin: 0px;
+    }
+    DIV, TD, TR, TABLE {
+      padding: 0px;
+      margin: 0px;
+    }
+    .content {
+      position: relative;
+      background: #ddd;
+      width: 75%;
+      margin: 0px auto;
+    }
+    .actions {
+      position: absolute;
+      top: 0em;
+      right: 0px;
+      width: 11em;
+      margin: 0px;
+      padding: 0px;
+    }
+    .action-content {
+      padding: 1em;
+      margin-right: 11em;
+      border-right: solid 2px grey;
+      background: white;
+    }
+    .actions A {
+      display: block;
+      width: 10em;
+      line-height: 2em;
+      border: solid 1px grey;
+      background: white;
+      margin: 0.5em;
+      text-align: center;
+      text-decoration: none;
+    }
+    .actions A:hover {
+      background: navy;
+      color: white;
+    }
+    .actions LI {
+      list-style: none;
+    }
+    TABLE {
+      border-spacing: 0px;
+      width: 100%;
+    }
+    TD {
+      padding: 0.25em;
+    }
+    TD {
+      border: solid 1px grey;
+      border-bottom: solid 1px grey;
+    }
+  </style>
+  <body>
+    <div class="content">
+      <div class="action-content">
+	<%= yield %>
+      </div>
+      <ul class="actions">
+	<li><a href="/jobs.html">Jobs</a></li>
+	<li><a href="/jobs/new.html">New</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

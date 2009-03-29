@@ -8,9 +8,8 @@
     <dt>Command</dt>
     <dd><textarea name="job[command]"><%= @job.command %></textarea></dd>
   </dl>
-  <input type="submit" value="Save"/>
+  <div class="buttons">
+    <input type="submit" name="commit" value="Save"/>
+    <input type="submit" name="commit" value="Destroy"/>
+  </div>
 </form>
-<ul>
-  <li><a href="/jobs.html">Jobs</a></li>
-  <li><a href="/jobs/new.html">New</a></li>
-</ul>

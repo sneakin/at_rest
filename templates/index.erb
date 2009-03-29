@@ -1,13 +1,14 @@
 <table>
+<tr>
+  <th>ID</th>
+  <th>Running at</th>
+  <th>Command</th>
+</tr>
 <% @jobs.each do |job| %>
 <tr>
   <td><a href="/jobs/<%= job.id %>.html"><%= job.id %></a></td>
-  <td><%= job.at %></td>
+  <td><%= job.at.strftime("%Y/%m%/%d %H:%M") %></td>
   <td><%= job.command %></td>
 </tr>
 <% end %>
 </table>
-<ul>
-  <li><a href="/jobs.html">Jobs</a></li>
-  <li><a href="/jobs/new.html">New</a></li>
-</ul>

@@ -80,12 +80,17 @@ def put_job(jid, format)
       @job.attributes = params['job']
     end
     
-    @job.save
-
-    if format == 'html'
-      redirect "/jobs/#{@job.id}.html"
+    if params['commit'] =~ /Destroy/i
+      @job.destroy
+      redirect "/jobs.html"
     else
-      @job.to_xml
+      @job.save
+
+      if format == 'html'
+        redirect "/jobs/#{@job.id}.html"
+      else
+        @job.to_xml
+      end
     end
   else
     not_found
