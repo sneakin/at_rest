@@ -56,7 +56,7 @@ post '/jobs.xml' do
 end
 
 get '/jobs/new.html' do
-  @job = At::Job.new
+  @job = At::Job.new(:at => 5.minutes.from_now)
   erb :job
 end
 
