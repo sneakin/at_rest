@@ -1,0 +1,16 @@
+<h1>Job <%= @job.id %></h1>
+<form method="POST">
+  <input type="hidden" name="method" value="put"/>
+  <dl>
+    <dt>At</dt>
+    <dd><input name="job[at]" value="<%= @job.at %>"/></dd>
+
+    <dt>Command</dt>
+    <dd><textarea name="job[command]"><%= @job.command %></textarea></dd>
+  </dl>
+  <input type="submit" value="Save"/>
+</form>
+<ul>
+  <li><a href="/jobs.html">Jobs</a></li>
+  <li><a href="/jobs/new.html">New</a></li>
+</ul>

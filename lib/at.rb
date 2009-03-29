@@ -39,12 +39,12 @@ module At
     def attributes=(attrs)
       attrs = HashWithIndifferentAccess.new(attrs)
 
-      self.id = attrs[:id] if attrs[:id]
-      self.at = attrs[:at] if attrs[:at]
-      @new_record = !attrs[:existing] if attrs[:existing]
-      @changed = attrs[:changed]
+      self.id = attrs[:id] if attrs.has_key?(:id)
+      self.at = attrs[:at] if attrs.has_key?(:at)
+      @new_record = !attrs[:existing] if attrs.has_key?(:existing)
+      @changed = attrs[:changed] if attrs.has_key?(:changed)
 
-      @command = attrs[:command] if attrs[:command]
+      @command = attrs[:command] if attrs.has_key?(:command)
     end
 
     def changed?

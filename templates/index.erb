@@ -1,0 +1,13 @@
+<table>
+<% @jobs.each do |job| %>
+<tr>
+  <td><a href="/jobs/<%= job.id %>.html"><%= job.id %></a></td>
+  <td><%= job.at %></td>
+  <td><%= job.command %></td>
+</tr>
+<% end %>
+</table>
+<ul>
+  <li><a href="/jobs.html">Jobs</a></li>
+  <li><a href="/jobs/new.html">New</a></li>
+</ul>
