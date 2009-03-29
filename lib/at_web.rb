@@ -15,6 +15,18 @@ end
 
 set :views, File.dirname(__FILE__) + '/../templates'
 
+def jobs_path(format)
+  "/jobs.#{format}"
+end
+
+def job_path(jid, format)
+  "/jobs/#{jid}.#{format}"
+end
+
+get '/' do
+  redirect jobs_path('html')
+end
+
 get /\/jobs\.(xml|html)/ do |format|
   @jobs = At::Job.find(:all)
 
@@ -40,7 +52,7 @@ end
 
 post '/jobs.xml' do
   create_job
-  created("/jobs/#{@job.id}.xml")
+  created(job_path(@job.id, "xml"))
 end
 
 get '/jobs/new.html' do
@@ -50,7 +62,7 @@ end
 
 post '/jobs/new.html' do
   create_job
-  redirect("/jobs/#{@job.id}.html")
+  redirect(job_path(@job.id, "html"))
 end
 
 get /\/jobs\/(\d+)\.(xml|html)/ do |jid, format|
@@ -82,12 +94,12 @@ def put_job(jid, format)
     
     if params['commit'] =~ /Destroy/i
       @job.destroy
-      redirect "/jobs.html"
+      redirect jobs_path("html")
     else
       @job.save
 
       if format == 'html'
-        redirect "/jobs/#{@job.id}.html"
+        redirect job_path(@job.id, "html")
       else
         @job.to_xml
       end
