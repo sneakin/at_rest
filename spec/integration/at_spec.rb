@@ -94,6 +94,14 @@ describe At::Job do
           assert_time(at, @job.at)
         end
 
+        it "has the same at time even after reloading" do
+          at = @job.at
+          @job.save
+
+          @job = At::Job.find(@job.id)
+          assert_time(at, @job.at)
+        end
+
         it "has the same command" do
           lambda { @job.save }.should_not change(@job, :command)
         end
