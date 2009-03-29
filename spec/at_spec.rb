@@ -164,9 +164,18 @@ describe At::Job do
       end
 
       describe 'when the command has not been set' do
-        it "runs 'at -c' and returns the result" do
-          At::Job.should_receive(:run).with("at -c #{@job.id}").and_return("#{At::Job::MARKER}\nls")
-          @job.command.should == "ls"
+        describe 'with a marker in the command' do
+          it "runs 'at -c' and returns the post-marker result" do
+            At::Job.should_receive(:run).with("at -c #{@job.id}").and_return("echo garbage\n#{At::Job::MARKER}\nls")
+            @job.command.should == "ls"
+          end
+        end
+
+        describe 'without a marker in the command' do
+          it "runs 'at -c' and returns the entirye result" do
+            At::Job.should_receive(:run).with("at -c #{@job.id}").and_return("echo hello\nls")
+            @job.command.should == "echo hello\nls"
+          end
         end
       end
 

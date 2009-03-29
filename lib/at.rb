@@ -130,8 +130,13 @@ module At
     def self.query_job(job_id)
       output = run("at -c #{job_id}")
       idx = output.rindex(MARKER)
-      idx = idx + output[idx..-1].index("\n")
-      output[(idx + 1)..-1].strip
+
+      if idx
+        idx = idx + output[idx..-1].index("\n")
+        output[(idx + 1)..-1].strip
+      else
+        output
+      end
     end
 
     def self.queue_job(job)
