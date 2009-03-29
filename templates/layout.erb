@@ -11,8 +11,9 @@
     }
     .content {
       position: relative;
-      background: #ddd;
+      background: #eef;
       width: 75%;
+      height: 100%;
       margin: 0px auto;
     }
     .actions {
@@ -24,17 +25,17 @@
       padding: 0px;
     }
     .action-content {
-      padding: 1em;
+      padding: 0em 1em;
       margin-right: 11em;
-      border-right: solid 2px grey;
+      border-right: solid 2px navy;
       background: white;
-      min-height: 5em;
+      height: 100%;
     }
     .actions A {
       display: block;
       width: 10em;
       line-height: 2em;
-      border: solid 1px grey;
+      border: solid 1px navy;
       background: white;
       margin: 0.5em;
       text-align: center;
@@ -44,19 +45,52 @@
       background: navy;
       color: white;
     }
+    .actions UL {
+      margin: 0px;
+      padding: 0px;
+    }
     .actions LI {
       list-style: none;
     }
+    H1, TABLE, P, DL {
+      margin: 0em;
+    }
+    .action-content P { padding-top: 1em; }
     TABLE {
+      margin-top: 1em;
       border-spacing: 0px;
       width: 100%;
     }
+    H1 { padding-top: 0.5em; }
     TD {
       padding: 0.25em;
     }
     TD {
-      border: solid 1px grey;
-      border-bottom: solid 1px grey;
+      border: solid 1px #dde;
+      border-bottom: solid 1px #dde;
+    }
+    form {
+      border: solid 1px #dde;
+      padding: 0.5em;
+    }
+    .buttons {
+      margin-top: 0.5em;
+      padding: 0.5em;
+      background: #eef;
+    }
+    .buttons input {
+      width: 8em;
+      margin: 0em 0.25em;
+    }
+    .footer {
+      background: navy;
+      color: white;
+      padding-top: 0em;
+      padding: 0.5em;
+      
+    }
+    .footer A {
+      color: cyan;
     }
   </style>
   <body>
@@ -65,9 +99,19 @@
 	<%= yield %>
       </div>
       <ul class="actions">
-	<li><a href="/jobs.html">Jobs</a></li>
-	<li><a href="/jobs/new.html">New</a></li>
+	<li>
+	  <a href="/jobs.html">Jobs</a>
+	  <ul>
+	    <li><a href="/jobs/new.html">New</a></li>
+	  </ul>
+	</li>
       </ul>
+      <div class="footer">
+	<p>
+	  Powered by <a href="http://github.com/sneakin/at_rest">AtRest</a>.
+	  Copyright &copy; 2009 <a href="http://semanticgap.com/">SemanticGap</a>&reg;.
+	</p>
+      </div>
     </div>
   </body>
 </html>

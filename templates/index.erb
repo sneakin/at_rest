@@ -1,3 +1,6 @@
+<% if @jobs.empty? %>
+<p>No jobs were found.</p>
+<% else %>
 <table>
 <tr>
   <th>ID</th>
@@ -12,3 +15,4 @@
 </tr>
 <% end %>
 </table>
+<% end %>
