@@ -3,6 +3,18 @@ require 'active_support'
 
 module At
   class Error < RuntimeError
+    def initialize(job, msg)
+      super(msg)
+
+      @job = job
+    end
+
+    def message
+      "#{@job.inspect}: #{super}"
+    end
+  end
+
+  class NotFoundError < RuntimeError
   end
 
   class Job
@@ -30,6 +42,8 @@ module At
       self.id = attrs[:id] if attrs[:id]
       self.at = attrs[:at] if attrs[:at]
       @new_record = !attrs[:existing] if attrs[:existing]
+      @changed = attrs[:changed]
+
       @command = attrs[:command] if attrs[:command]
     end
 
@@ -46,8 +60,10 @@ module At
     end
 
     def save
+      return true unless changed? || new_record?
+
       new_job = self.class.queue_job(self)
-      destroy
+      destroy(false)
 
       self.attributes = new_job.attributes
       @destroyed = @changed = @new_record = false
@@ -55,9 +71,12 @@ module At
       self
     end
 
-    def destroy
+    def destroy(do_freeze = true)
+      return if destroyed?
+
       self.class.destroy(self)
       @destroyed = true
+      self.freeze if do_freeze
     end
 
     def command=(value)
@@ -94,6 +113,10 @@ module At
       end
     end
 
+    def ==(other)
+      self.id == other.id if other.kind_of?(self.class)
+    end
+
     def self.find(jid)
       if jid == :all
         find_all
@@ -105,15 +128,17 @@ module At
     end
 
     def self.find_by_id(jid)
-      find_all.find { |job|
+      job = find_all.find { |job|
         job.id == jid.to_i
       }
+      raise NotFoundError.new("Job #{jid} not found") if job.nil?
+      job
     end
 
     def self.find_all
       run("atq").split("\n").collect do |line|
         job_id, time = line.split("\t")
-        self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true)
+        self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true, :changed => false)
       end
     end
 
@@ -140,7 +165,7 @@ module At
     end
 
     def self.queue_job(job)
-      output = run("at", job.at.localtime.strftime("%H:%M %Y-%m-%d")) do |i, o, e|
+      output = run("at", job.at.localtime.strftime("%H:%M %m/%d/%Y")) do |i, o, e|
         i.puts MARKER
         i.puts job.command
         i.close
@@ -154,11 +179,10 @@ module At
         break m if m
       end
 
-      raise Error.new("unexpected output while queuing job: #{output.inspect}") unless m
+      raise Error.new(job, "unexpected output while queuing job: #{output.inspect}") unless m
 
       job_id, time = m[1], m[2]
-      $stderr.puts "Creating job #{job_id.inspect} #{time.inspect}"
-      self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true)
+      self.new(:id => job_id.to_i, :at => Time.parse(time), :existing => true, :changed => false)
     end
 
     def self.destroy(job)

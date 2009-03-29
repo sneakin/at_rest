@@ -65,7 +65,7 @@ describe At::Job do
     end
 
     it "runs at with the job's time" do
-      At::Job.should_receive(:run).with("at", @job.at.strftime("%H:%M %Y-%m-%d")).and_return("job 57 at Sun Mar 29 05:00:00 2009\n")
+      At::Job.should_receive(:run).with("at", @job.at.strftime("%H:%M %m/%d/%Y")).and_return("job 57 at Sun Mar 29 05:00:00 2009\n")
 
       At::Job.queue_job(@job)
     end
