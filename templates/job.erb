@@ -1,8 +1,14 @@
-<h1>Job <%= @job.id %></h1>
+<h1>
+  <%= "New" if @job.new_record? %>
+  Job
+  <%= @job.id unless @job.new_record? %>
+</h1>
 <form method="POST">
   <dl>
     <dt>At</dt>
-    <dd><input name="job[at]" value="<%= @job.at %>"/></dd>
+    <dd>
+      <input name="job[at]" value="<%= @job.at.strftime("%Y/%m/%d %H:%M") %>"/>
+    </dd>
 
     <dt>Command</dt>
     <dd><textarea name="job[command]"><%= @job.command %></textarea></dd>

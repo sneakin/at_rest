@@ -4,6 +4,7 @@
     BODY {
       background: black;
       margin: 0px;
+      font-family: Courier New, Courier, Fixed;
     }
     DIV, TD, TR, TABLE {
       padding: 0px;
@@ -18,7 +19,7 @@
     }
     .actions {
       position: absolute;
-      top: 0em;
+      top: 3em;
       right: 0px;
       width: 11em;
       margin: 0px;
@@ -61,7 +62,7 @@
       border-spacing: 0px;
       width: 100%;
     }
-    H1 { padding-top: 0.5em; }
+    .action-content H1 { padding-top: 1em; }
     TD {
       padding: 0.25em;
     }
@@ -82,19 +83,48 @@
       width: 8em;
       margin: 0em 0.25em;
     }
+    .content {
+      padding-top: 2em;
+    }
+    .header {
+      background: navy;
+      color: white;
+      padding-top: 0em;
+      width: 100%;
+      top: 0px;
+      position: absolute;
+    }
+    .header H1 { margin: 0.25em 0.1em 0em 0.5em; }
     .footer {
       background: navy;
       color: white;
       padding-top: 0em;
       padding: 0.5em;
-      
+      position: relative;
+      font-size: 0.8em;
+      text-align: center;
     }
-    .footer A {
+    .header A, .footer A {
       color: cyan;
+      text-decoration: none;
+    }
+    .header .time, .footer .time {
+      position: absolute;
+      right: 0.5em;
+      top: 0em;
+      line-height: 3em;
     }
   </style>
   <body>
     <div class="content">
+      <div class="header">
+	<h1>
+	  <a href="/">AtRest</a>
+	</h1>
+	<p class="time">
+	  <%= Time.now.strftime("%Y/%m/%d %H:%M") %>
+	</p>
+      </div>
       <div class="action-content">
 	<%= yield %>
       </div>
