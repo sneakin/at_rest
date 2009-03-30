@@ -13,6 +13,7 @@ def gone(url)
   halt
 end
 
+set :public, File.dirname(__FILE__) + '/../static'
 set :views, File.dirname(__FILE__) + '/../templates'
 
 def jobs_path(format)

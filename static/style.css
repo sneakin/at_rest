@@ -1,0 +1,123 @@
+BODY {
+    background: black;
+    margin: 0px;
+    font-family: Courier New, Courier, Fixed;
+}
+DIV, TD, TR, TABLE {
+    padding: 0px;
+    margin: 0px;
+}
+.centerer {
+    width: 75%;
+    min-height: 100%;
+    margin: 0px auto;
+}
+.content {
+    position: relative;
+    background: #eef;
+}
+.actions {
+    position: absolute;
+    top: 3em;
+    right: 0px;
+    width: 11em;
+    margin: 0px;
+    padding: 0px;
+}
+.action-content {
+    padding: 1em 1em 2em 1em;
+    margin-right: 11em;
+    border-right: solid 2px navy;
+    background: white;
+}
+.actions A {
+    display: block;
+    width: 10em;
+    line-height: 2em;
+    border: solid 1px navy;
+    background: white;
+    margin: 0.5em;
+    text-align: center;
+    text-decoration: none;
+}
+.actions A:hover {
+    background: navy;
+    color: white;
+}
+.actions UL {
+    margin: 0px;
+    padding: 0px;
+}
+.actions LI {
+    list-style: none;
+}
+H1, TABLE, P, DL {
+    margin: 0em;
+}
+DT {
+    font-weight: bold;
+}
+.action-content P { padding-top: 1em; }
+TABLE {
+    margin-top: 0.5em;
+    border-spacing: 0px;
+    width: 100%;
+}
+.action-content H1 {
+    padding: 0.1em;
+    background: #eef;
+    margin: 0em 0em 0.25em 0em;
+}
+TD {
+    padding: 0.25em;
+}
+TD {
+    border: solid 1px #dde;
+    border-bottom: solid 1px #dde;
+}
+fieldset {
+    border: solid 1px #dde;
+    padding: 0.5em;
+}
+fieldset legend {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.buttons {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    background: #eef;
+}
+.buttons input {
+    width: 8em;
+    margin: 0em 0.25em;
+}
+.content {
+}
+.header {
+    background: navy;
+    color: white;
+    padding-top: 0em;
+    width: 100%;
+    top: 0px;
+}
+.header H1 { margin: 0em 0.1em 0em 0.5em; padding-top: 0.1em; }
+.footer {
+    background: navy;
+    color: white;
+    padding-top: 0em;
+    padding: 0.5em;
+    position: relative;
+    font-size: 0.8em;
+    text-align: center;
+}
+.header A, .footer A {
+    color: cyan;
+    text-decoration: none;
+}
+.header .time, .footer .time {
+    position: absolute;
+    right: 0.5em;
+    top: 0em;
+    line-height: 2.5em;
+}
