@@ -1,4 +1,3 @@
-require 'sinatra'
 require 'active_resource' # needed for some exception classes
 
 if ENV['REMOTE']
@@ -21,7 +20,7 @@ def gone(url)
 end
 
 enable :sessions
-set :public, File.dirname(__FILE__) + '/../static'
+set :public, File.dirname(__FILE__) + '/../public'
 set :views, File.dirname(__FILE__) + '/../templates'
 
 def jobs_path(format)
@@ -80,10 +79,10 @@ get /\/jobs\.(xml|html)/ do |format|
 end
 
 def create_job
-  begin
-    xml_data = Hash.from_xml(request.body)
+  if request.content_type == "application/xml"
+    xml_data = Hash.from_xml(request.body.read)
     @job = At::Job.new(xml_data['job'])
-  rescue NoMethodError
+  else
     @job = At::Job.new(params['job'])
   end
 

@@ -1,6 +1,14 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require 'rubygems'
+require 'sinatra'
 
 lib = File.join(File.dirname(__FILE__), "../lib")
-exec("ruby -I#{lib} -rrubygems #{lib}/at_web.rb")
+$: << lib
+
+src = File.join(lib, "at_web.rb")
+require src
+
+set :app_file, src
+
+Sinatra::Application.run!
