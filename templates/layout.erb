@@ -14,7 +14,7 @@
 	</div>
 	<div class="action-content">
 	  <h1><%=h @title %></h1>
-	  <% unless @flash.empty? %>
+	  <% if !@flash.nil? && !@flash.empty? %>
 	  <div id="flash">
 	    <% @flash.each do |msg| %>
 	    <p><%= msg %></p>
