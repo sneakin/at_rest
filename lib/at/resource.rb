@@ -1,4 +1,5 @@
 require 'active_resource'
+require 'at/error'
 
 module At
   class Job < ActiveResource::Base

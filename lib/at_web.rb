@@ -1,5 +1,11 @@
 require 'sinatra'
-require 'at'
+
+if ENV['REMOTE']
+  require 'at/resource'
+  At::Job.site = ENV['REMOTE']
+else
+  require 'at'
+end
 
 def created(url)
   status 201
@@ -75,7 +81,6 @@ end
 def create_job
   begin
     xml_data = Hash.from_xml(request.body)
-    puts xml_data.inspect
     @job = At::Job.new(xml_data['job'])
   rescue NoMethodError
     @job = At::Job.new(params['job'])
@@ -91,7 +96,7 @@ end
 
 get '/jobs/new.html' do
   @title = "New Job"
-  @job = At::Job.new(:at => 5.minutes.from_now)
+  @job = At::Job.new(:at => 5.minutes.from_now, :command => '')
   erb :job
 end
 
@@ -112,7 +117,7 @@ get /\/jobs\/(\d+)\.(xml|html)/ do |jid, format|
       content_type 'application/xml', :charset => 'utf-8'
       @job.to_xml(:root => 'jobs')
     end
-  rescue At::NotFoundError
+  rescue At::NotFoundError, ActiveResource::ResourceNotFound
     not_found
   end
 end
@@ -120,32 +125,29 @@ end
 def put_job(jid, format)
   @job = At::Job.find(jid)
 
-  if @job
-    begin
-      xml_data = Hash.from_xml(request.body.read)
-      puts xml_data.inspect
-      @job.attributes = xml_data['job']
-    rescue NoMethodError
-      @job.attributes = params['job']
-    end
-    
-    if params['commit'] =~ /Destroy/i
-      @job.destroy
-      flash("Destroyed job #{@job.id}.")
+  begin
+    xml_data = Hash.from_xml(request.body.read)
+    @job.attributes = xml_data['job'].merge('id' => @job.id)
+  rescue NoMethodError
+    @job.attributes = params['job'].merge('id' => @job.id)
+  end
+  
+  if params['commit'] =~ /Destroy/i
+    @job.destroy
+    flash("Destroyed job #{@job.id}.")
+    redirect jobs_path("html")
+  else
+    @job.save
+
+    if format == 'html'
+      flash("Saved <a href=\"#{job_path(@job.id, 'html')}\">job #{@job.id}</a>.")
       redirect jobs_path("html")
     else
-      @job.save
-
-      if format == 'html'
-        flash("Saved <a href=\"#{job_path(@job.id, 'html')}\">job #{@job.id}</a>.")
-        redirect jobs_path("html")
-      else
-        @job.to_xml
-      end
+      @job.to_xml
     end
-  else
-    not_found
   end
+rescue At::NotFoundError, ActiveResource::ResourceNotFound
+  not_found
 end
 
 post /\/jobs\/(\d+)\.(xml|html)/ do |jid, format|
