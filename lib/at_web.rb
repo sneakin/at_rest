@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'active_resource' # needed for some exception classes
 
 if ENV['REMOTE']
   require 'at/resource'
