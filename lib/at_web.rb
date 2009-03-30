@@ -24,6 +24,21 @@ def job_path(jid, format)
   "/jobs/#{jid}.#{format}"
 end
 
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
+
+error do
+  @error = request.env['sinatra.error']
+  erb :error
+end
+
+not_found do
+  @path = request.fullpath
+  erb :not_found
+end
+
 get '/' do
   redirect jobs_path('html')
 end
