@@ -11,7 +11,7 @@
 <tr>
   <td><a href="/jobs/<%= job.id %>.html"><%= job.id %></a></td>
   <td><%= job.at.strftime("%Y/%m/%d %H:%M") %></td>
-  <td><%= job.command %></td>
+  <td><%= job.command[0, 60] %>...</td>
 </tr>
 <% end %>
 </table>

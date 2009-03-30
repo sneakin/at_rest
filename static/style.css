@@ -8,9 +8,9 @@ DIV, TD, TR, TABLE {
     margin: 0px;
 }
 .centerer {
-    width: 75%;
     min-height: 100%;
-    margin: 0px auto;
+/*     width: 75%; */
+/*     margin: 0px auto; */
 }
 .content {
     position: relative;
@@ -58,7 +58,7 @@ DT {
     font-weight: bold;
 }
 .action-content P { padding-top: 1em; }
-TABLE {
+TABLE { 
     margin-top: 0.5em;
     border-spacing: 0px;
     width: 100%;
@@ -73,8 +73,6 @@ TABLE {
 }
 TD {
     padding: 0.25em;
-}
-TD {
     border: solid 1px #dde;
     border-bottom: solid 1px #dde;
 }
@@ -85,6 +83,14 @@ fieldset {
 fieldset legend {
     font-weight: bold;
     font-size: 1.5em;
+}
+INPUT, TEXTAREA {
+    font-family: Courier New, Courier, fixed;
+    font-size: 1em;
+}
+TEXTAREA {
+    min-height: 5em;
+    width: 100%;
 }
 .buttons {
     margin-top: 0.5em;
