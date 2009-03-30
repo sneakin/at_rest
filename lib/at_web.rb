@@ -13,6 +13,7 @@ def gone(url)
   halt
 end
 
+enable :sessions
 set :public, File.dirname(__FILE__) + '/../static'
 set :views, File.dirname(__FILE__) + '/../templates'
 
@@ -27,6 +28,20 @@ end
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
+end
+
+def flash(msg = nil)
+  if msg
+    session[:flash] ||= Array.new
+    session[:flash] << msg
+  end
+
+  session[:flash] || Array.new
+end
+
+before do
+  @flash = session[:flash]
+  session[:flash] = Array.new
 end
 
 error do
@@ -82,7 +97,8 @@ end
 
 post '/jobs/new.html' do
   create_job
-  redirect(job_path(@job.id, "html"))
+  flash("Created <a href=\"#{job_path(@job.id, 'html')}\">job #{@job.id}</a>.")
+  redirect(jobs_path("html"))
 end
 
 get /\/jobs\/(\d+)\.(xml|html)/ do |jid, format|
@@ -115,12 +131,14 @@ def put_job(jid, format)
     
     if params['commit'] =~ /Destroy/i
       @job.destroy
+      flash("Destroyed job #{@job.id}.")
       redirect jobs_path("html")
     else
       @job.save
 
       if format == 'html'
-        redirect job_path(@job.id, "html")
+        flash("Saved <a href=\"#{job_path(@job.id, 'html')}\">job #{@job.id}</a>.")
+        redirect jobs_path("html")
       else
         @job.to_xml
       end

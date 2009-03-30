@@ -135,3 +135,11 @@ fieldset legend {
 .backtrace LI:nth-child(odd), .action-content TR:nth-child(even) {
     background: #eef;
 }
+#flash {
+    background: #dfd;
+    border: solid 1px #8f8;
+}
+#flash P {
+    margin: 0.25em;
+    padding: 0.25em 0.25em;
+}

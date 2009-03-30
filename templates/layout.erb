@@ -14,6 +14,13 @@
 	</div>
 	<div class="action-content">
 	  <h1><%=h @title %></h1>
+	  <% unless @flash.empty? %>
+	  <div id="flash">
+	    <% @flash.each do |msg| %>
+	    <p><%= msg %></p>
+	    <% end %>
+	  </div>
+	  <% end %>
 	  <%= yield %>
 	</div>
 	<ul class="actions">
