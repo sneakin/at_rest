@@ -124,3 +124,14 @@ fieldset legend {
     top: 0em;
     line-height: 2.5em;
 }
+.backtrace {
+    list-style: none;
+    padding: 0px;
+}
+.backtrace LI {
+    margin: 0.5em 0em;
+    padding: 0.25em;
+}
+.backtrace LI:nth-child(odd), .action-content TR:nth-child(even) {
+    background: #eef;
+}

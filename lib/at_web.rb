@@ -30,11 +30,13 @@ helpers do
 end
 
 error do
+  @title = "Unexpected Error"
   @error = request.env['sinatra.error']
   erb :error
 end
 
 not_found do
+  @title = "Not Found"
   @path = request.fullpath
   erb :not_found
 end
@@ -44,6 +46,7 @@ get '/' do
 end
 
 get /\/jobs\.(xml|html)/ do |format|
+  @title = "Jobs"
   @jobs = At::Job.find(:all)
 
   if format == 'html'
@@ -72,6 +75,7 @@ post '/jobs.xml' do
 end
 
 get '/jobs/new.html' do
+  @title = "New Job"
   @job = At::Job.new(:at => 5.minutes.from_now)
   erb :job
 end
@@ -82,16 +86,17 @@ post '/jobs/new.html' do
 end
 
 get /\/jobs\/(\d+)\.(xml|html)/ do |jid, format|
-  @job = At::Job.find(jid)
+  begin
+    @job = At::Job.find(jid)
+    @title = "Job #{@job.id}"
 
-  if @job
     if format == 'html'
       erb :job
     else
       content_type 'application/xml', :charset => 'utf-8'
       @job.to_xml(:root => 'jobs')
     end
-  else
+  rescue At::NotFoundError
     not_found
   end
 end

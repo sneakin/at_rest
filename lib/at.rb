@@ -10,7 +10,7 @@ module At
     end
 
     def message
-      "#{@job.inspect}: #{super}"
+      "Job(id: #{@job.id.inspect}, at: #{@job.at.inspect}, command: #{@job.command.inspect}): #{super}"
     end
   end
 

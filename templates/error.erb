@@ -1,9 +1,8 @@
-<h1>Unexpected error.</h1>
 <h2><%= @error.class.name %></h2>
 <p>
   <%=h @error.message %>
 </p>
-<ul>
+<ul class="backtrace">
   <% @error.backtrace.each do |bt| %>
   <li><%=h bt %></li>
   <% end %>
