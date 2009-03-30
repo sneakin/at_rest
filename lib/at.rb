@@ -152,11 +152,15 @@ module At
 
     def self.queue_job(job)
       output = run("at", job.at.localtime.strftime("%H:%M %m/%d/%Y")) do |i, o, e|
-        i.puts MARKER
-        i.puts job.command
-        i.close
+        begin
+          i.puts MARKER
+          i.puts job.command
+          i.close
 
-        e.read
+          e.read
+        rescue Errno::EPIPE
+          e.read
+        end
       end
 
       m = nil
