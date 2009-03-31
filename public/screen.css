@@ -1,0 +1,29 @@
+.actions {
+    position: absolute;
+    top: 3em;
+    right: 0px;
+    width: 11em;
+    padding: 0px;
+}
+
+.action-content {
+    padding: 1em 1em 2em 1em;
+    margin-right: 11em;
+    border-right: solid 2px navy;
+}
+
+.actions A {
+    width: 10em;
+    line-height: 2em;
+    margin: 0.5em;
+}
+
+.buttons {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    background: #eef;
+}
+.buttons input {
+    width: 8em;
+    margin: 0em 0.25em;
+}

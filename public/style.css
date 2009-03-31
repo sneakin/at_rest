@@ -3,7 +3,7 @@ BODY {
     margin: 0px;
     font-family: Courier New, Courier, Fixed;
 }
-DIV, TD, TR, TABLE {
+DIV, TD, TR, TABLE, UL, LI {
     padding: 0px;
     margin: 0px;
 }
@@ -17,36 +17,22 @@ DIV, TD, TR, TABLE {
     background: #eef;
 }
 .actions {
-    position: absolute;
-    top: 3em;
-    right: 0px;
-    width: 11em;
     margin: 0px;
-    padding: 0px;
+    padding: 1em;
 }
 .action-content {
-    padding: 1em 1em 2em 1em;
-    margin-right: 11em;
-    border-right: solid 2px navy;
     background: white;
 }
 .actions A {
     display: block;
-    width: 10em;
-    line-height: 2em;
     border: solid 1px navy;
     background: white;
-    margin: 0.5em;
     text-align: center;
     text-decoration: none;
 }
 .actions A:hover {
     background: navy;
     color: white;
-}
-.actions UL {
-    margin: 0px;
-    padding: 0px;
 }
 .actions LI {
     list-style: none;
@@ -94,12 +80,8 @@ TEXTAREA {
 }
 .buttons {
     margin-top: 0.5em;
-    padding: 0.5em;
-    background: #eef;
 }
 .buttons input {
-    width: 8em;
-    margin: 0em 0.25em;
 }
 .content {
 }
