@@ -31,6 +31,9 @@ DIV, TD, TR, TABLE, UL, LI {
     text-decoration: none;
     font-weight: bold;
     color: navy;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
 }
 .actions A:hover {
     background: navy;
