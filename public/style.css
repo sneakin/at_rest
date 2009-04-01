@@ -14,7 +14,7 @@ DIV, TD, TR, TABLE, UL, LI {
 }
 .content {
     position: relative;
-    background: #eef;
+    background: #dff;
 }
 .actions {
     margin: 0px;
@@ -29,6 +29,8 @@ DIV, TD, TR, TABLE, UL, LI {
     background: white;
     text-align: center;
     text-decoration: none;
+    font-weight: bold;
+    color: navy;
 }
 .actions A:hover {
     background: navy;
@@ -51,7 +53,7 @@ TABLE {
 }
 .action-content H1 {
     padding: 0.1em;
-    background: #eef;
+    background: #dff;
     margin: 0em 0em 0.25em 0em;
 }
 .action-content H2 {
@@ -121,7 +123,7 @@ TEXTAREA {
     padding: 0.25em;
 }
 .backtrace LI:nth-child(odd), .action-content TR:nth-child(even) {
-    background: #eef;
+    background: #dff;
 }
 #flash {
     background: #dfd;
